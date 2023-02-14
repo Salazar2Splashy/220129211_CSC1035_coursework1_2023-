@@ -21,4 +21,20 @@ public class AuctionHouse {
         }
         return mostExpensiveItem;//Returns the most expensive item - will return null if no items sold.
     }
+    public float findAveragePrice() { //Used to find the average price sale
+        float totalPrice = 0; //Initialises total to 0
+        for (Item soldItem : this.soldItems) { //Cycles through every sold item
+            totalPrice += soldItem.price; //Creates a total amount of money
+        }
+       return totalPrice / this.soldItems.size(); //Returns the average (total price / number of items)
+    }
+    public List itemsOverPrice(float minPrice) { //Used to find all items sold over a certain value
+        List returnedList = null; //Creates an empty list
+        for (Item soldItem : this.soldItems) { //Cycles through every sold item
+            if (soldItem.price >= minPrice) { //Checks if the item sold for enough money
+                returnedList.add(soldItem); //Adds it to the list if it did
+            }
+        }
+        return returnedList;
+    }
 }
