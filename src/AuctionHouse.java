@@ -21,10 +21,12 @@ public class AuctionHouse {
         }
         return mostExpensiveItem;//Returns the most expensive item - will return null if no items sold.
     }
-    public float findAveragePrice() { //Used to find the average price sale
+    public float findAveragePrice(int year) { //Used to find the average price sale
         float totalPrice = 0; //Initialises total to 0
         for (Item soldItem : this.soldItems) { //Cycles through every sold item
-            totalPrice += soldItem.price; //Creates a total amount of money
+            if (soldItem.yearSold == year) { // If it was sold in the correct year then
+                totalPrice += soldItem.price; //Creates a total amount of money
+            }
         }
        return totalPrice / this.soldItems.size(); //Returns the average (total price / number of items)
     }
