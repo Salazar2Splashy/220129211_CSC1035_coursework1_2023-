@@ -1,12 +1,12 @@
 import java.util.*;
 
-public class Main {
+public class ReportingIO {
     public static final String ANSI_RESET = "\u001B[0m"; // Used to reset text output colour after an error message
     public static final String ANSI_RED = "\u001B[31m"; // Used to turn text red during an error message
 
-    public static void main(String[] args) { // Creates a blank list of auction houses to begin with
+    public static void main(String[] args) { // Creates a blank list of auction houses to begin with - ensuring it only runs this once and does not wipe data
         List<AuctionHouse> AuctionHousesList = new ArrayList<AuctionHouse>();
-        mainMenu(AuctionHousesList);
+        mainMenu(AuctionHousesList); // Sends the blank list of type AuctionHouse to the main menu to utilise.
     }
 
     public static void mainMenu(List<AuctionHouse> AuctionHousesList) { // Creates a main menu
@@ -15,7 +15,7 @@ public class Main {
         while (!accepted) { // While their input has not been accepted, it loops this code. This means if any errors are caught it will just retry from here.
             try {
                 Scanner sc = new Scanner(System.in);
-                System.out.print("MAIN MENU\n" + // Displays the options for the user
+                System.out.print("\nMAIN MENU\n" + // Displays the options for the user
                         "1. Enter Auction House data\n" +
                         "2. Enter item data\n" +
                         "3. Provide reporting statistics\n" +
@@ -39,7 +39,7 @@ public class Main {
             System.out.print("Enter auction house name: ");
             String name = sc.next(); // Takes the user's input for the auction house name
             AuctionHouse newHouse = new AuctionHouse(name, new ArrayList<>()); // Creates a new house with an empty sold items list
-            System.out.println("Created new auction house: "+ name+"\n");
+            System.out.println("Created new auction house: "+ name);
             AuctionHousesList.add(newHouse); // Adds the auction house to the list of saved auction houses
             mainMenu(AuctionHousesList); // Returns to the main menu
         }
@@ -112,7 +112,7 @@ public class Main {
             String auctionHouseName = null;
             AuctionHouse auctionHouseToUse = null;
             while (!accepted) { // While their input has not been accepted, it loops this code. This means if any errors are caught it will just retry from here.
-                System.out.println("\nAuction Houses:");
+                System.out.println("Auction Houses:");
                 for(AuctionHouse house : AuctionHousesList) {
                     System.out.println(house.name); // Prints a list of all auction houses
                 }
@@ -120,7 +120,7 @@ public class Main {
                 System.out.print("\nEnter item's auction house name: ");
                 auctionHouseName = sc5.next();
                 for(AuctionHouse house : AuctionHousesList) { // Loops through the auction houses to check if the input matches
-                    if (auctionHouseName == house.name) {
+                    if (auctionHouseName.equals(house.name)) {
                         auctionHouseToUse = house; // If it does, it stores this auction house as the one the item was sold in
                         accepted = true;
                     }
@@ -135,7 +135,33 @@ public class Main {
             mainMenu(AuctionHousesList); // The user is returned to the main menu
         }
         if (choice == 3) { // If the user selects the option to view reporting statistics:
-
+            if (AuctionHousesList.size() == 0) {
+                System.out.println(ANSI_RED + "You must have an auction house in order to view statistics." + ANSI_RESET);
+                mainMenu(AuctionHousesList);
+            }
+            accepted = false; // Initialises a variable used to validate input
+            choice = 0;
+            while (!accepted) { // While their input has not been accepted, it loops this code. This means if any errors are caught it will just retry from here.
+                try {
+                    Scanner sc = new Scanner(System.in);
+                    System.out.print("\nWhat do you wish to do?\n" + // Displays the options for the user
+                            "1. Display most expensive item\n" +
+                            "2. See house with largest average price for a given year\n" +
+                            "3. View all items over £x\n" +
+                            "Selection: ");
+                    choice = sc.nextInt(); // Takes the user's input
+                    if (choice > 3 || choice<1){ // Checks if the user inputted something within a valid range
+                        System.out.println(ANSI_RED + "Please choose an option between 1 and 3.\n\n" + ANSI_RESET); // If they did not it prompts them to retry. This and the corresponding error message below are both in red.
+                    } else {
+                        accepted = true; // If they did it allows them to proceed
+                    }
+                } catch (InputMismatchException ex) {
+                    System.out.print(ANSI_RED + "Please input an integer number.\n\n" + ANSI_RESET); // If they did not enter a number, this will catch the error and allow them to retry
+                }
+            }
+            if (choice == 1) {
+                Reporting.MostExpensive(AuctionHousesList);
+            }
             mainMenu(AuctionHousesList); // Returns to the main menu
         }
     }
