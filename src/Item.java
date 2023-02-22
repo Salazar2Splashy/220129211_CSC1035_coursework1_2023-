@@ -18,11 +18,11 @@ public class Item {
     @Override
     public String toString() {
         return "Item{" +
-                "lotNumber=" + lotNumber +
-                ", buyerName='" + buyerName + '\'' +
-                ", price=" + price +
-                ", yearSold=" + yearSold +
-                ", typeOfItem='" + typeOfItem + '\'' +
+                "Lot Number= " + lotNumber +
+                ", Buyer Name= '" + buyerName + '\'' +
+                ", Price= £" + price +
+                ", Year Sold= " + yearSold +
+                ", Type Of Item= '" + typeOfItem + '\'' +
                 '}';
     }
 

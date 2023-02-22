@@ -162,6 +162,36 @@ public class ReportingIO {
             if (choice == 1) {
                 Reporting.MostExpensive(AuctionHousesList);
             }
+            if (choice == 2) {
+                accepted = false; // Initialises a variable used to validate input
+                int yearToCheck = 0;
+                while (!accepted) { // While their input has not been accepted, it loops this code. This means if any errors are caught it will just retry from here.
+                    try {
+                        Scanner sc6 = new Scanner(System.in);
+                        System.out.print("Enter year to check: ");
+                        yearToCheck = sc6.nextInt();
+                        accepted = true; // If they entered a valid integer it allows them to proceed
+                    } catch (InputMismatchException ex) {
+                        System.out.print(ANSI_RED + "Please input an integer number.\n\n" + ANSI_RESET); // If they did not enter an integer, this will catch the error and allow them to retry
+                    }
+                }
+                Reporting.AverageInYear(AuctionHousesList,yearToCheck);
+            }
+            if (choice == 3) {
+                accepted = false; // Initialises a variable used to validate input
+                float lowestPrice = 0;
+                while (!accepted) { // While their input has not been accepted, it loops this code. This means if any errors are caught it will just retry from here.
+                    try {
+                        Scanner sc7 = new Scanner(System.in);
+                        System.out.print("Enter price to search for items being over: ");
+                        lowestPrice = sc7.nextFloat();
+                        accepted = true; // If they entered a valid integer it allows them to proceed
+                    } catch (InputMismatchException ex) {
+                        System.out.print(ANSI_RED + "Please input a float number.\n\n" + ANSI_RESET); // If they did not enter an integer, this will catch the error and allow them to retry
+                    }
+                }
+                Reporting.FindAllAbove(AuctionHousesList,lowestPrice);
+            }
             mainMenu(AuctionHousesList); // Returns to the main menu
         }
     }
