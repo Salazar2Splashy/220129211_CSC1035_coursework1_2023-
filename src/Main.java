@@ -5,11 +5,11 @@ public class Main {
     public static final String ANSI_RED = "\u001B[31m"; // Used to turn text red during an error message
 
     public static void main(String[] args) { // Creates a blank list of auction houses to begin with
-        List AuctionHousesList = new ArrayList();
+        List<AuctionHouse> AuctionHousesList = new ArrayList<AuctionHouse>();
         mainMenu(AuctionHousesList);
     }
 
-    public static void mainMenu(List AuctionHousesList) { // Creates a main menu
+    public static void mainMenu(List<AuctionHouse> AuctionHousesList) { // Creates a main menu
         boolean accepted = false; // Initialises a variable used to validate input
         int choice = 0; // Initialises a choice variable
         while (!accepted) { // While their input has not been accepted, it loops this code. This means if any errors are caught it will just retry from here.
@@ -69,7 +69,7 @@ public class Main {
                     buyerName = sc2.next();
                     accepted = true; // If they entered a valid string it allows them to proceed
                 } catch (InputMismatchException ex) {
-                    System.out.print(ANSI_RED + "Please input a valid string.\n\n" + ANSI_RESET); // If they did not enter a number, this will catch the error and allow them to retry
+                    System.out.print(ANSI_RED + "Please input a valid string.\n\n" + ANSI_RESET); // If they did not enter a valid string, this will catch the error and allow them to retry
                 }
             }
             accepted = false; // Initialises a variable used to validate input
@@ -84,10 +84,59 @@ public class Main {
                     System.out.print(ANSI_RED + "Please input a float number.\n\n" + ANSI_RESET); // If they did not enter a number, this will catch the error and allow them to retry
                 }
             }
-            System.out.println(lotNumber);
+            accepted = false; // Initialises a variable used to validate input
+            int yearSold = 0;
+            while (!accepted) { // While their input has not been accepted, it loops this code. This means if any errors are caught it will just retry from here.
+                try {
+                    Scanner sc4 = new Scanner(System.in);
+                    System.out.print("Enter item's year sold: ");
+                    yearSold = sc4.nextInt();
+                    accepted = true; // If they entered a valid integer it allows them to proceed
+                } catch (InputMismatchException ex) {
+                    System.out.print(ANSI_RED + "Please input an integer number.\n\n" + ANSI_RESET); // If they did not enter an integer, this will catch the error and allow them to retry
+                }
+            }
+            accepted = false; // Initialises a variable used to validate input
+            String typeOfItem = null;
+            while (!accepted) { // While their input has not been accepted, it loops this code. This means if any errors are caught it will just retry from here.
+                try {
+                    Scanner sc4 = new Scanner(System.in);
+                    System.out.print("Enter item type: ");
+                    typeOfItem = sc4.next();
+                    accepted = true; // If they entered a valid string it allows them to proceed
+                } catch (InputMismatchException ex) {
+                    System.out.print(ANSI_RED + "Please input an integer number.\n\n" + ANSI_RESET); // If they did not enter a valid string, this will catch the error and allow them to retry
+                }
+            }
+            accepted = false; // Initialises a variable used to validate input
+            String auctionHouseName = null;
+            AuctionHouse auctionHouseToUse = null;
+            while (!accepted) { // While their input has not been accepted, it loops this code. This means if any errors are caught it will just retry from here.
+                System.out.println("\nAuction Houses:");
+                for(AuctionHouse house : AuctionHousesList) {
+                    System.out.println(house.name); // Prints a list of all auction houses
+                }
+                Scanner sc5 = new Scanner(System.in);
+                System.out.print("\nEnter item's auction house name: ");
+                auctionHouseName = sc5.next();
+                for(AuctionHouse house : AuctionHousesList) { // Loops through the auction houses to check if the input matches
+                    if (auctionHouseName == house.name) {
+                        auctionHouseToUse = house; // If it does, it stores this auction house as the one the item was sold in
+                        accepted = true;
+                    }
+                }
+                if (accepted == false) { // If not the user is told to try again
+                    System.out.print(ANSI_RED + "That is not a valid auction house.\n\n" + ANSI_RESET);
+                }
+            }
 
-            //Item newItem = new Item(lotNumber, buyerName, price, );
-            mainMenu(AuctionHousesList);
+            Item newItem = new Item(lotNumber, buyerName, price, yearSold, typeOfItem, auctionHouseName); // The item is created
+            auctionHouseToUse.addItemSold(newItem); // The item is added to the house's sold items list.
+            mainMenu(AuctionHousesList); // The user is returned to the main menu
+        }
+        if (choice == 3) { // If the user selects the option to view reporting statistics:
+
+            mainMenu(AuctionHousesList); // Returns to the main menu
         }
     }
 }
