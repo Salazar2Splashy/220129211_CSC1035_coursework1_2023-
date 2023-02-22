@@ -5,7 +5,7 @@ public class ReportingIO {
     public static final String ANSI_RED = "\u001B[31m"; // Used to turn text red during an error message
 
     public static void main(String[] args) { // Creates a blank list of auction houses to begin with - ensuring it only runs this once and does not wipe data
-        List<AuctionHouse> AuctionHousesList = new ArrayList<AuctionHouse>();
+        List<AuctionHouse> AuctionHousesList = new ArrayList<>();
         mainMenu(AuctionHousesList); // Sends the blank list of type AuctionHouse to the main menu to utilise.
     }
 
@@ -125,7 +125,7 @@ public class ReportingIO {
                         accepted = true;
                     }
                 }
-                if (accepted == false) { // If not the user is told to try again
+                if (!accepted) { // If not the user is told to try again
                     System.out.print(ANSI_RED + "That is not a valid auction house.\n\n" + ANSI_RESET);
                 }
             }
