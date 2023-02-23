@@ -65,9 +65,7 @@ public class Reporting {
         List<Item> itemsList = new ArrayList<Item>(); // Creates an empty list for the items to go in
         for (AuctionHouse house : AuctionHousesList) { // Loops through houses
             List<Item> houseItems = house.itemsOverPrice(minPrice); // Runs their function to retrieve a list of the house's items sold over x price
-            for (Item item : houseItems) { // For every item returned by the house
-                itemsList.add(item); // Adds it to the master list
-            }
+            itemsList.addAll(houseItems);
         }
         if (itemsList.size() == 0) { // If no items are in the list by the end then none have been sold for that price
             System.out.println(ANSI_RED + "You have not sold any items over this price." + ANSI_RESET);
