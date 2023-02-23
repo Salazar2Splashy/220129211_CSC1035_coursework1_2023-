@@ -74,6 +74,7 @@ public class Reporting {
         System.out.println("You have sold the following items for over £" + minPrice);
         for (Item item : itemsList) { // Lists all items sold over £x
             System.out.println(item.toString());
+            ReportingIO.mainMenu(AuctionHousesList);
         }
     }
 }
