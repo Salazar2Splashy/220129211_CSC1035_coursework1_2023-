@@ -40,16 +40,16 @@ public class Reporting {
     public static void AverageInYear(List<AuctionHouse> AuctionHousesList, int Year) { // Finds the highest average sales price of a year
         float currentHighest = 0;
         AuctionHouse houseSoldIn = null;
-        if (houseSoldIn == null) { // If no houses have sold anything it flags it
-            System.out.println(ANSI_RED + "You have not sold any items in this year." + ANSI_RESET);
-            ReportingIO.mainMenu(AuctionHousesList);
-        }
         for (AuctionHouse house : AuctionHousesList) { // Loops all houses
             float averageOfHouse = house.findAveragePrice(Year); // Finds their average price
             if (averageOfHouse > currentHighest){
                 currentHighest = averageOfHouse;
                 houseSoldIn = house; // If their sales price is the new highest it updates it
             }
+        }
+        if (houseSoldIn == null) { // If no houses have sold anything it flags it
+            System.out.println(ANSI_RED + "You have not sold any items in this year." + ANSI_RESET);
+            ReportingIO.mainMenu(AuctionHousesList);
         }
         System.out.println("The highest average in "+ Year + " was house '" + houseSoldIn.name + "' with an average sale price of " + currentHighest); // Outputs the details
         ReportingIO.mainMenu(AuctionHousesList);
