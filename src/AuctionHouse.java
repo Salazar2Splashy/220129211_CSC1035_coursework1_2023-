@@ -49,12 +49,14 @@ public class AuctionHouse {
      */
     public float findAveragePrice(int year) { //Used to find the average price sale
         float totalPrice = 0; //Initialises total to 0
+        List<Item> itemsSoldThisYear = new ArrayList<Item>(); // Creates a new list to store items sold in the given year
         for (Item soldItem : this.soldItems) { //Cycles through every sold item
             if (soldItem.yearSold == year) { // If it was sold in the correct year then
                 totalPrice += soldItem.price; //Creates a total amount of money
+                itemsSoldThisYear.add(soldItem); // Adds the item to the list of items sold this year
             }
         }
-       return totalPrice / this.soldItems.size(); //Returns the average (total price / number of items)
+       return totalPrice / itemsSoldThisYear.size(); //Returns the average (total price / number of items sold this year)
     }
 
     /**
