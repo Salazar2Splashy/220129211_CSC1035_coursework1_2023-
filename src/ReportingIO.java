@@ -1,14 +1,26 @@
 import java.util.*;
 
+/**
+ * This class is used as the main menu, and is the one the user interacts with. It creates a list of auction houses and stores this for the user.
+ * It allows them to add new items and auction houses, as well as request report data.
+ */
 public class ReportingIO {
     public static final String ANSI_RESET = "\u001B[0m"; // Used to reset text output colour after an error message
     public static final String ANSI_RED = "\u001B[31m"; // Used to turn text red during an error message
 
+    /**
+     * This section creates the blank list that the program begins by creating for the auction houses to go in.
+     */
     public static void main(String[] args) { // Creates a blank list of auction houses to begin with - ensuring it only runs this once and does not wipe data
         List<AuctionHouse> AuctionHousesList = new ArrayList<>();
         mainMenu(AuctionHousesList); // Sends the blank list of type AuctionHouse to the main menu to utilise.
     }
 
+    /**
+     * This method is called after a blank list is created and whenever a process finishes, allowing the user to select their next option.
+     * This contains all the code needed to perform any functionalities and takes all inputs from the user.
+     * @param AuctionHousesList receives the current version of the list (either empty or filled in)
+     */
     public static void mainMenu(List<AuctionHouse> AuctionHousesList) { // Creates a main menu
         boolean accepted = false; // Initialises a variable used to validate input
         int choice = 0; // Initialises a choice variable
@@ -37,7 +49,7 @@ public class ReportingIO {
         if (choice == 1) { // If the user selects the option to enter a new auction house's data:
             Scanner sc = new Scanner(System.in);
             System.out.print("Enter auction house name: ");
-            String name = sc.next(); // Takes the user's input for the auction house name
+            String name = sc.nextLine(); // Takes the user's input for the auction house name
             AuctionHouse newHouse = new AuctionHouse(name, new ArrayList<>()); // Creates a new house with an empty sold items list
             System.out.println("Created new auction house: "+ name);
             AuctionHousesList.add(newHouse); // Adds the auction house to the list of saved auction houses
@@ -66,7 +78,7 @@ public class ReportingIO {
                 try {
                     Scanner sc2 = new Scanner(System.in);
                     System.out.print("Enter item's buyer name: ");
-                    buyerName = sc2.next();
+                    buyerName = sc2.nextLine();
                     accepted = true; // If they entered a valid string it allows them to proceed
                 } catch (InputMismatchException ex) {
                     System.out.print(ANSI_RED + "Please input a valid string.\n\n" + ANSI_RESET); // If they did not enter a valid string, this will catch the error and allow them to retry
@@ -103,7 +115,7 @@ public class ReportingIO {
                     Scanner sc4 = new Scanner(System.in);
                     System.out.print("Enter item type: \n1. Furniture\n2. Painting\n3. Sculpture\nSelection: "); // Gives options for the allowed types of items
                     int selection = sc4.nextInt();
-                    if (choice > 3 || choice<1){ // Checks if the user inputted something within a valid range
+                    if (selection > 3 || selection<1){ // Checks if the user inputted something within a valid range
                         System.out.println(ANSI_RED + "Please choose an option between 1 and 3.\n\n" + ANSI_RESET); // If they did not it prompts them to retry. This and the corresponding error message below are both in red.
                     } else { // Then sets the item type based on input
                         if (selection == 1) {
@@ -131,7 +143,7 @@ public class ReportingIO {
                 }
                 Scanner sc5 = new Scanner(System.in);
                 System.out.print("\nEnter item's auction house name: ");
-                auctionHouseName = sc5.next();
+                auctionHouseName = sc5.nextLine();
                 for(AuctionHouse house : AuctionHousesList) { // Loops through the auction houses to check if the input matches
                     if (auctionHouseName.equals(house.name)) {
                         auctionHouseToUse = house; // If it does, it stores this auction house as the one the item was sold in

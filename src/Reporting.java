@@ -1,9 +1,18 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is used to report back to the user and compares data from each auction house
+ */
 public class Reporting {
     public static final String ANSI_RESET = "\u001B[0m"; // Used to reset text output colour after an error message
     public static final String ANSI_RED = "\u001B[31m"; // Used to turn text red during an error message
+
+    /**
+     * This compares all auction houses' most expensive sale to find the most expensive one of them
+     * It then returns this to the user in a readable format
+     * @param AuctionHousesList is the list of all auction houses
+     */
     public static void MostExpensive(List<AuctionHouse> AuctionHousesList) { // Finds the most expensive item from all houses
         float currentHighest = 0;
         Item mostExpensiveItem = null;
@@ -22,6 +31,12 @@ public class Reporting {
         ReportingIO.mainMenu(AuctionHousesList);
     }
 
+    /**
+     * This finds the highest average price an auction house has made in any year specified by the user.
+     * It is printed in a clear, understandable way.
+     * @param AuctionHousesList is a list of all auction houses
+     * @param Year is specified by the user. It is the year the sales are made in.
+     */
     public static void AverageInYear(List<AuctionHouse> AuctionHousesList, int Year) { // Finds the highest average sales price of a year
         float currentHighest = 0;
         AuctionHouse houseSoldIn = null;
@@ -40,6 +55,12 @@ public class Reporting {
         ReportingIO.mainMenu(AuctionHousesList);
     }
 
+    /**
+     * This finds all items sold for above a certain price.
+     * These items are then printed in a human-readable way as a list.
+     * @param AuctionHousesList lists all auction houses
+     * @param minPrice is set by the user to set the price all items must have sold for over.
+     */
     public static void FindAllAbove(List<AuctionHouse> AuctionHousesList, float minPrice) { // Finds all items sold for above x price
         List<Item> itemsList = new ArrayList<Item>(); // Creates an empty list for the items to go in
         for (AuctionHouse house : AuctionHousesList) { // Loops through houses
