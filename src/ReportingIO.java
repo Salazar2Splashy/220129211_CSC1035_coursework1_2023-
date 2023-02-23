@@ -101,11 +101,24 @@ public class ReportingIO {
             while (!accepted) { // While their input has not been accepted, it loops this code. This means if any errors are caught it will just retry from here.
                 try {
                     Scanner sc4 = new Scanner(System.in);
-                    System.out.print("Enter item type: ");
-                    typeOfItem = sc4.next();
-                    accepted = true; // If they entered a valid string it allows them to proceed
+                    System.out.print("Enter item type: \n1. Furniture\n2. Painting\n3. Sculpture\nSelection: "); // Gives options for the allowed types of items
+                    int selection = sc4.nextInt();
+                    if (choice > 3 || choice<1){ // Checks if the user inputted something within a valid range
+                        System.out.println(ANSI_RED + "Please choose an option between 1 and 3.\n\n" + ANSI_RESET); // If they did not it prompts them to retry. This and the corresponding error message below are both in red.
+                    } else { // Then sets the item type based on input
+                        if (selection == 1) {
+                            typeOfItem = "Furniture";
+                        }
+                        if (selection == 2) {
+                            typeOfItem = "Painting";
+                        }
+                        if (selection == 3) {
+                            typeOfItem = "Sculpture";
+                        }
+                        accepted = true; // If they entered a valid option it allows them to proceed
+                    }
                 } catch (InputMismatchException ex) {
-                    System.out.print(ANSI_RED + "Please input an integer number.\n\n" + ANSI_RESET); // If they did not enter a valid string, this will catch the error and allow them to retry
+                    System.out.print(ANSI_RED + "Please input an integer number.\n\n" + ANSI_RESET); // If they did not enter a valid integer, this will catch the error and allow them to retry
                 }
             }
             accepted = false; // Initialises a variable used to validate input
