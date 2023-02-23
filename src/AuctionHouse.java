@@ -67,7 +67,7 @@ public class AuctionHouse {
     public List itemsOverPrice(float minPrice) { //Used to find all items sold over a certain value
         List<Item> returnedList = new ArrayList<Item>(); //Creates an empty list
         for (Item soldItem : this.soldItems) { //Cycles through every sold item
-            if (soldItem.price >= minPrice) { //Checks if the item sold for enough money
+            if (soldItem.price > minPrice) { //Checks if the item sold for enough money
                 returnedList.add(soldItem); //Adds it to the list if it did
             }
         }
